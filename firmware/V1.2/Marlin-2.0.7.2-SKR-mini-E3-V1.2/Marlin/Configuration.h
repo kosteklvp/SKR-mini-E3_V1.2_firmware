@@ -2,7 +2,7 @@
 
 #define CONFIGURATION_H_VERSION 020007
 #define STRING_CONFIG_H_AUTHOR "Piotr Kostański"
-#define CUSTOM_MACHINE_NAME "Ender-5 PiKo1e"
+#define CUSTOM_MACHINE_NAME "Ender-5 PiKor"
 
 #define SHOW_BOOTSCREEN
 
@@ -19,9 +19,6 @@
 #define TEMP_SENSOR_0 1
 #define TEMP_SENSOR_BED 1
 
-// Use temp sensor 1 as a redundant sensor with sensor 0. If the readings
-// from the two sensors differ too much the print will be aborted.
-//#define TEMP_SENSOR_1_AS_REDUNDANT
 #define MAX_REDUNDANT_TEMP_SENSOR_DIFF 10
 
 #define TEMP_RESIDENCY_TIME     10  // (seconds) Time to wait for hotend to "settle" in M109
@@ -39,9 +36,9 @@
 #define BED_MAXTEMP      125
 
 #define PIDTEMP
-#define BANG_MAX 255     // Limits current to nozzle while in bang-bang mode; 255=full current
-#define PID_MAX BANG_MAX // Limits current to nozzle while PID is active (see PID_FUNCTIONAL_RANGE below); 255=full current
-#define PID_K1 0.95      // Smoothing factor within any PID loop
+#define BANG_MAX 255
+#define PID_MAX BANG_MAX
+#define PID_K1 0.95
 #define DEFAULT_Kp 19.60
 #define DEFAULT_Ki 1.25
 #define DEFAULT_Kd 76.99
@@ -114,7 +111,7 @@
  * Override with M203
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 500, 500, 5, 25 }
+#define DEFAULT_MAX_FEEDRATE          { 100, 100, 5, 120 }
 
 //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
@@ -146,13 +143,13 @@
 #define DEFAULT_RETRACT_ACCELERATION  500    // E acceleration for retracts
 #define DEFAULT_TRAVEL_ACCELERATION   500    // X, Y, Z acceleration for travel (non printing) moves
 
-//#define CLASSIC_JERK
+#define CLASSIC_JERK
 #if ENABLED(CLASSIC_JERK)
   #define DEFAULT_XJERK 10.0
   #define DEFAULT_YJERK 10.0
   #define DEFAULT_ZJERK  0.3
 
-  //#define TRAVEL_EXTRA_XYJERK 0.0     // Additional jerk allowance for all travel moves
+  #define TRAVEL_EXTRA_XYJERK 5.0     // Additional jerk allowance for all travel moves
 
   //#define LIMITED_JERK_EDITING        // Limit edit via M205 or LCD to DEFAULT_aJERK * 2
   #if ENABLED(LIMITED_JERK_EDITING)
@@ -160,22 +157,22 @@
   #endif
 #endif
 
-#define DEFAULT_EJERK    5.0  // May be used by Linear Advance
+#define DEFAULT_EJERK    15.0  // May be used by Linear Advance
 
-#if DISABLED(CLASSIC_JERK)
-  #define JUNCTION_DEVIATION_MM 0.08  // (mm) Distance from real junction edge
-  #define JD_HANDLE_SMALL_SEGMENTS    // Use curvature estimation instead of just the junction angle
-                                      // for small segments (< 1mm) with large junction angles (> 135°).
-#endif
+// #if DISABLED(CLASSIC_JERK)
+//   #define JUNCTION_DEVIATION_MM 0.08  // (mm) Distance from real junction edge
+//   #define JD_HANDLE_SMALL_SEGMENTS    // Use curvature estimation instead of just the junction angle
+//                                       // for small segments (< 1mm) with large junction angles (> 135°).
+// #endif
 
 #define S_CURVE_ACCELERATION
 
 #define BLTOUCH
 #define USE_PROBE_FOR_Z_HOMING
 #define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
-#define NOZZLE_TO_PROBE_OFFSET { 48, 28, -1.85 }
-#define PROBING_MARGIN 4
-#define XY_PROBE_SPEED (120*60)
+#define NOZZLE_TO_PROBE_OFFSET { 41, 8, -0.5 }
+#define PROBING_MARGIN 40
+#define XY_PROBE_SPEED (HOMING_FEEDRATE_XY)
 #define Z_PROBE_SPEED_FAST HOMING_FEEDRATE_Z
 #define Z_PROBE_SPEED_SLOW (Z_PROBE_SPEED_FAST / 2)
 
@@ -183,9 +180,8 @@
 #define Z_CLEARANCE_BETWEEN_PROBES 2 // Z Clearance between probe points
 #define Z_CLEARANCE_MULTI_PROBE 2 // Z Clearance between multiple probes
 
-#define Z_PROBE_LOW_POINT          -2 // Farthest distance below the trigger-point to go before stopping
+#define Z_PROBE_LOW_POINT -2
 
-// For M851 give a range for adjusting the Z probe offset
 #define Z_PROBE_OFFSET_RANGE_MIN -20
 #define Z_PROBE_OFFSET_RANGE_MAX 20
 
@@ -210,8 +206,8 @@
 #define Y_HOME_DIR -1
 #define Z_HOME_DIR -1
 
-#define X_BED_SIZE 230
-#define Y_BED_SIZE 230
+#define X_BED_SIZE 225
+#define Y_BED_SIZE 225
 
 #define X_MIN_POS 0
 #define Y_MIN_POS 0
@@ -238,20 +234,20 @@
 #define GRID_MAX_POINTS_X 5
 #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
-//#define Z_PROBE_END_SCRIPT "G1 Z10 F12000\nG1 X15 Y330\nG1 Z0.5\nG1 Z10"
+#define Z_PROBE_END_SCRIPT "G28 X Y"
 
 #define Z_SAFE_HOMING
-#define Z_SAFE_HOMING_X_POINT X_CENTER  // X point for Z homing
-#define Z_SAFE_HOMING_Y_POINT Y_CENTER  // Y point for Z homing
+#define Z_SAFE_HOMING_X_POINT X_CENTER
+#define Z_SAFE_HOMING_Y_POINT Y_CENTER
 
 #define HOMING_FEEDRATE_XY (20*60)
 #define HOMING_FEEDRATE_Z  (4*60)
 
 #define VALIDATE_HOMING_ENDSTOPS
 
-#define EEPROM_SETTINGS       // Persistent storage with M500 and M501
-#define EEPROM_CHITCHAT       // Give feedback on EEPROM commands. Disable to save PROGMEM.
-#define EEPROM_BOOT_SILENT    // Keep M503 quiet and only give errors during first load
+#define EEPROM_SETTINGS
+#define EEPROM_CHITCHAT
+#define EEPROM_BOOT_SILENT
 #define EEPROM_AUTO_INIT
 
 #define HOST_KEEPALIVE_FEATURE        // Disable this if your host doesn't like keepalive messages
