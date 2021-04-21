@@ -2,7 +2,7 @@
 
 #define CONFIGURATION_H_VERSION 020007
 #define STRING_CONFIG_H_AUTHOR "Piotr Kostański"
-#define CUSTOM_MACHINE_NAME "Ender-5 PiKo"
+#define CUSTOM_MACHINE_NAME "Ender-5 PiKo 3"
 
 #define SHOW_BOOTSCREEN
 
@@ -82,26 +82,12 @@
 #define DEFAULT_RETRACT_ACCELERATION  500
 #define DEFAULT_TRAVEL_ACCELERATION   500
 
-// #define CLASSIC_JERK
-#if ENABLED(CLASSIC_JERK)
-  #define DEFAULT_XJERK 10.0
-  #define DEFAULT_YJERK 10.0
-  #define DEFAULT_ZJERK  0.3
 
-  #define TRAVEL_EXTRA_XYJERK 5.0     // Additional jerk allowance for all travel moves
-
-  //#define LIMITED_JERK_EDITING        // Limit edit via M205 or LCD to DEFAULT_aJERK * 2
-  #if ENABLED(LIMITED_JERK_EDITING)
-    #define MAX_JERK_EDIT_VALUES { 20, 20, 0.6, 10 } // ...or, set your own edit limits
-  #endif
-#endif
-
-#define DEFAULT_EJERK    15.0  // May be used by Linear Advance
+#define DEFAULT_EJERK    15.0
 
 #if DISABLED(CLASSIC_JERK)
-  #define JUNCTION_DEVIATION_MM 0.08  // (mm) Distance from real junction edge
-  #define JD_HANDLE_SMALL_SEGMENTS    // Use curvature estimation instead of just the junction angle
-                                      // for small segments (< 1mm) with large junction angles (> 135°).
+  #define JUNCTION_DEVIATION_MM 0.08
+  #define JD_HANDLE_SMALL_SEGMENTS
 #endif
 
 #define S_CURVE_ACCELERATION
@@ -109,8 +95,8 @@
 #define BLTOUCH
 #define USE_PROBE_FOR_Z_HOMING
 #define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
-#define NOZZLE_TO_PROBE_OFFSET { 41, 8, 0 }
-#define PROBING_MARGIN 40
+#define NOZZLE_TO_PROBE_OFFSET { 46, 8, 0 }
+#define PROBING_MARGIN 10
 #define XY_PROBE_SPEED (HOMING_FEEDRATE_XY)
 #define Z_PROBE_SPEED_FAST HOMING_FEEDRATE_Z
 #define Z_PROBE_SPEED_SLOW (Z_PROBE_SPEED_FAST / 2)
@@ -145,8 +131,8 @@
 #define Y_HOME_DIR -1
 #define Z_HOME_DIR -1
 
-#define X_BED_SIZE 235
-#define Y_BED_SIZE 235
+#define X_BED_SIZE 225
+#define Y_BED_SIZE 225
 
 #define X_MIN_POS 0
 #define Y_MIN_POS 0
@@ -170,7 +156,7 @@
 #endif
 
 #define AUTO_BED_LEVELING_LINEAR
-#define GRID_MAX_POINTS_X 4
+#define GRID_MAX_POINTS_X 5
 #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
 #define Z_SAFE_HOMING
