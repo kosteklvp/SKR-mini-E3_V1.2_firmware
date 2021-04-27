@@ -2,7 +2,7 @@
 
 #define CONFIGURATION_H_VERSION 020007
 #define STRING_CONFIG_H_AUTHOR "Piotr Kostański"
-#define CUSTOM_MACHINE_NAME "Ender-5 PiKo 3"
+#define CUSTOM_MACHINE_NAME "Ender-5 PiKo 4"
 
 #define SHOW_BOOTSCREEN
 
@@ -28,10 +28,10 @@
 #define TEMP_BED_WINDOW          1
 #define TEMP_BED_HYSTERESIS      3
 
-#define HEATER_0_MINTEMP   5
+#define HEATER_0_MINTEMP   -4
 #define HEATER_0_MAXTEMP 280
 
-#define BED_MINTEMP        5
+#define BED_MINTEMP        -4
 #define BED_MAXTEMP      125
 
 #define PIDTEMP
