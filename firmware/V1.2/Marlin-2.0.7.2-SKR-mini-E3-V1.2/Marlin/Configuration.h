@@ -2,7 +2,7 @@
 
 #define CONFIGURATION_H_VERSION 020007
 #define STRING_CONFIG_H_AUTHOR "Piotr Kostański"
-#define CUSTOM_MACHINE_NAME "Ender-5 PiKo 9"
+#define CUSTOM_MACHINE_NAME "Ender-5 PiKo 1"
 
 #define SHOW_BOOTSCREEN
 
@@ -145,8 +145,8 @@
 #define Y_HOME_DIR -1
 #define Z_HOME_DIR -1
 
-#define X_BED_SIZE 220
-#define Y_BED_SIZE 225
+#define X_BED_SIZE 215
+#define Y_BED_SIZE 220
 
 #define X_MIN_POS 0
 #define Y_MIN_POS 0
